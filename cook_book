@@ -1,0 +1,61 @@
+def cook_book():
+	with open('receptions.txt', encoding = 'utf-8') as f:
+		cook_dict = {}
+		list0 = []
+		ingr_list = []
+		for lines in f.read().split('\n\n'):
+			name, count, *ingr = lines.split('\n')
+			ingr_list = []
+			for ingridient in ingr:
+				list0.append(ingridient)
+				ingredient_name, quantity, measure = ingridient.split('|')
+				ingr_list.append({'ingredient_name': ingredient_name, 'quantity': int(quantity), 'measure': measure})
+				cook_dict[name] = ingr_list
+	return cook_dict
+		
+
+print(cook_book())
+
+def get_shop_list_by_dishes(dishes, person_count):
+	book = cook_book()
+	shop_dict = {}
+	dict1 = {}
+	list1 = []
+	list2 = []
+	list3 = []
+	for name in dishes:
+		for cook_name, ingr_list in book.items():
+			if name == cook_name:
+				for ingr_dict in ingr_list:
+					list1.append(ingr_dict['ingredient_name'])
+					if len(set(list1)) == len(list1):
+						shop_dict[ingr_dict['ingredient_name']] = \
+						  {'quantity': ingr_dict['quantity'] * person_count, 'measure': ingr_dict['measure']}
+					else:
+						difference = len(list1) - len(set(list1))
+						shop_dict[ingr_dict['ingredient_name']] = \
+						  {'quantity': ingr_dict['quantity'] * person_count * (difference+1), 'measure': ingr_dict['measure']}
+						
+	for ingr_name, dict_of_ingr in shop_dict.items():
+	   dict1[ingr_name] = dict_of_ingr
+	print(dict1)   	
+	
+get_shop_list_by_dishes(['Запеченный картофель', 'Омлет','Омлет'], 3)
+
+
+
+
+
+# def my_cook_book():
+#     with open('receptions.txt', encoding='utf-8') as file:
+#         cook_book = {}
+#         for txt in file.read().split('\n\n'):
+#             name, _, *args = txt.split('\n')
+#             tmp = []
+#             for arg in args:
+#                 ingredient_name, quantity, measure = map(lambda x: int(x) if x.isdigit() else x, arg.split(' | '))
+#                 tmp.append({'ingredient_name': ingredient_name, 'quantity': quantity, 'measure': measure})
+#             cook_book[name] = tmp
+#     return cook_book
+
+# print(my_cook_book())    

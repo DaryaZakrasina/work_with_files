@@ -1,0 +1,47 @@
+def text_analisys():
+    import os
+    base_path = os.getcwd()
+    files = os.listdir(base_path)
+    text = filter(lambda x: x.endswith('.txt'), files)
+    file_list = list(text)
+    count = 0
+    list1 = []
+    #print(file_list)
+    for file in file_list:
+    	with open(file, encoding = 'utf-8') as f:
+    		lines = f.readlines()
+    		list1.append(lines)
+    dict1 = dict(zip(file_list, list1))
+    dict2 = sorted(dict1, key =  lambda x : len(dict1[x])) 
+    dict3 = {}
+    for key in dict2:
+    	dict3[key] = dict1.get(key)
+    for name, text1 in dict3.items():
+    	a = "\n".join(text1)
+    	print(f'{name} \n {len(text1)} \n {a}')
+        
+
+
+    # list1 = []
+    # list2 = []
+    # list3 = []
+ #    with open('1.txt', encoding = 'utf-8') as f:
+ #    	count = 0
+ #    	for lines in f:
+	# 		count += 1
+		
+	# with open('2.txt', encoding = 'utf-8') as f:
+	# 	count2 = 0
+	# 	for lines in f:
+	# 		count2 += 1
+	# with open('3.txt', encoding = 'utf-8') as f:
+	# 	count3 = 0
+	# 	for lines in f:
+	# 		count3 += 1
+	# if count >= count2:
+	# 	if count2 > count3:
+			#print(f'')
+
+
+
+text_analisys()
